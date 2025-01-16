@@ -1,18 +1,21 @@
-import { run } from './dacc-run'
-import flag from 'cozy-flags'
-import { aggregateFilesSize } from 'drive/lib/dacc/dacc'
-import log from 'cozy-logger'
+import endOfMonth from 'date-fns/endOfMonth'
+import subMonths from 'date-fns/subMonths'
+
 import CozyClient from 'cozy-client'
-import { endOfMonth, subMonths } from 'date-fns'
+import flag from 'cozy-flags'
+import log from 'cozy-logger'
+
+import { run } from './dacc-run'
+import { aggregateFilesSize } from 'lib/dacc/dacc'
 
 jest.mock('cozy-flags')
 jest.mock('cozy-client')
 jest.mock('cozy-logger')
-jest.mock('drive/lib/dacc/dacc')
+jest.mock('lib/dacc/dacc')
 
 describe('dacc', () => {
   const maxGivenDate = '2022-01-01'
-  const maxDate = new Date(maxGivenDate).toISOString()
+  const maxDate = new Date(maxGivenDate)
   beforeEach(() => {
     flag.mockReturnValue({
       excludedSlug: 'excludedSlug',
@@ -65,9 +68,7 @@ describe('dacc', () => {
       measureName: 'measureName',
       remoteDoctype: 'remoteDoctype'
     })
-    const endOfThisMonth = new Date(
-      endOfMonth(subMonths(new Date(), 1))
-    ).toISOString()
+    const endOfThisMonth = new Date(endOfMonth(subMonths(new Date(), 1)))
 
     // When
     await run()

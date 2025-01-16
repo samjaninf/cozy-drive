@@ -1,29 +1,26 @@
-import Enzyme from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
-
-// To avoid the errors while creating theme (since no CSS stylesheet
-// defining CSS variables is injected during tests)
-// Material-UI: the color provided to augmentColor(color) is invalid.
-// The color object needs to have a `main` property or a `500` property.
-jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
-  ...jest.requireActual('cozy-ui/transpiled/react/utils/color'),
-  getCssVariableValue: () => '#fff'
-}))
+import React from 'react'
 
 global.cozy = {}
 
-jest.mock('cozy-bar/transpiled', () => ({
+jest.mock('cozy-bar', () => ({
+  ...jest.requireActual('cozy-bar'),
+  BarComponent: () => <div>Bar</div>,
   BarLeft: ({ children }) => children,
   BarRight: ({ children }) => children,
   BarCenter: ({ children }) => children,
-  BarSearch: ({ children }) => children,
-  setTheme: () => null
+  BarSearch: ({ children }) => children
 }))
 
 jest.mock('cozy-intent', () => ({
   useWebviewIntent: jest.fn()
 }))
 
-Enzyme.configure({ adapter: new Adapter() })
+jest.mock('cozy-dataproxy-lib', () => ({
+  DataProxyProvider: ({ children }) => children,
+  SearchDialog: () => <div>SearchDialog</div>,
+  AssistantDialog: () => <div>AssistantDialog</div>,
+  AssistantDesktop: () => <div>AssistantDesktop</div>
+}))
+
 // see https://github.com/jsdom/jsdom/issues/1695
 window.HTMLElement.prototype.scroll = function () {}

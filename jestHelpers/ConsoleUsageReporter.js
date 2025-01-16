@@ -27,6 +27,9 @@ module.exports = class ConsoleUsageReporter {
   }
 
   static recordConsoleUsedInCurrentTestFile() {
+    // When using babel-jest, the global.jasmine object is not available
+    if (!global.jasmine) return
+
     const { testPath } = global.jasmine
     const testFilesThatUsedConsole = this.getTestFilesThatUsedConsole()
 
@@ -41,7 +44,7 @@ module.exports = class ConsoleUsageReporter {
   }
 
   static makeTestsFailWhenConsoleUsed() {
-    let consoleCalls
+    let consoleCalls = []
     let testsRunning = true
 
     const formatConsoleCalls = calls =>

@@ -1,14 +1,13 @@
-/* global __TARGET__ */
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-import { isFlagshipApp } from 'cozy-device-helper'
+import { useInstanceInfo } from 'cozy-client'
 import { makeDiskInfos } from 'cozy-client/dist/models/instance'
+import { isFlagshipApp } from 'cozy-device-helper'
 
-import BannerClient from '../../components/pushClient/Banner'
-import QuotaBanner from './QuotaBanner'
-import useInstanceInfo from 'hooks/useInstanceInfo'
 import { usePushBannerContext } from './PushBannerProvider'
+import QuotaBanner from './QuotaBanner'
+import BannerClient from '../../components/pushClient/Banner'
 
 /**
  * Component to manage all banner display logic
@@ -28,7 +27,7 @@ const PushBanner = ({ isPublic }) => {
     return <QuotaBanner />
   }
 
-  if (__TARGET__ !== 'mobile' && !isFlagshipApp()) {
+  if (!isFlagshipApp()) {
     return <BannerClient />
   }
 

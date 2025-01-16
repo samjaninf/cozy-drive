@@ -54,14 +54,14 @@ Cozy's apps use a standard set of _npm scripts_ to run common tasks, like watch,
 Using a watcher - with Hot Module Replacement:
 ```sh
 $ cd cozy-drive
-$ yarn watch:drive:browser
+$ yarn watch
 $ cozy-stack serve --appdir drive:/<project_absolute_path>/cozy-drive/build/drive --disable-csp
 ```
 
 Or directly build the app (static file generated):
 ```sh
 $ cd cozy-drive
-$ yarn build:drive
+$ yarn build
 $ cozy-stack serve --appdir drive:/<project_absolute_path>/cozy-drive/build/drive
 ```
 
@@ -76,7 +76,7 @@ You can easily view your current running app, you can use the [cozy-stack docker
 ```sh
 # in a terminal, run your app in watch mode
 $ cd cozy-drive
-$ yarn watch:drive:browser
+$ yarn watch
 ```
 
 ```sh
@@ -116,12 +116,6 @@ Then simply run `mailhog` and open http://cozy.tools:8025/.
 
 With MailHog, **every email** sent by cozy-stack is caught. That means the email address *does not have to be a real one*, ie. `bob@cozy`, `bob@cozy.tools` are perfectly fine. It *could be a real one*, but the email will not reach the real recipient's inbox, say `contact@cozycloud.cc`.
 
-
-### Run on you mobile phone or your tablet :phone:
-
-[See specific documentation](src/drive/targets/mobile/README.md).
-
-
 ### Living on the edge
 
 [Cozy-ui] is our frontend stack library that provides common styles and components accross the whole Cozy's apps. You can use it for you own application to follow the official Cozy's guidelines and styles. If you need to develop / hack cozy-ui, it's sometimes more useful to develop on it through another app. You can do it by cloning cozy-ui locally and link it to yarn local index:
@@ -146,12 +140,12 @@ You can now run the watch task and your project will hot-reload each times a coz
 Consider using [rlink] instead of `yarn link`
 
 
-[Cozy-client-js] is our API library that provides an unified API on top of the cozy-stack. If you need to develop / hack cozy-client-js in parallel of your application, you can use the same trick that we used with [cozy-ui]: yarn linking.
+[Cozy-client] is our API library that provides an unified API on top of the cozy-stack. If you need to develop / hack cozy-client in parallel of your application, you can use the same trick that we used with [cozy-ui]: yarn linking.
 
 
 ### Tests
 
-Tests are run by [mocha] under the hood, and written using [chai] and [sinon]. You can easily run the tests suite with:
+Tests are run by [jest] under the hood, and written using [chai] and [sinon]. You can easily run the tests suite with:
 
 ```sh
 $ cd cozy-drive
@@ -215,7 +209,7 @@ Cozy Drive is developed by Cozy Cloud and distributed under the [AGPL v3 license
 [yarn-install]: https://yarnpkg.com/en/docs/install
 [cozy-ui]: https://github.com/cozy/cozy-ui
 [rlink]: https://gist.github.com/ptbrowne/add609bdcf4396d32072acc4674fff23
-[cozy-client-js]: https://github.com/cozy/cozy-client-js/
+[cozy-client]: https://github.com/cozy/cozy-client/
 [cozy-stack-docker]: https://github.com/cozy/cozy-stack/blob/master/docs/client-app-dev.md#with-docker
 [doctypes]: https://cozy.github.io/cozy-doctypes/
 [bill-doctype]: https://github.com/cozy/cozy-konnector-libs/blob/master/models/bill.js
@@ -235,7 +229,7 @@ Cozy Drive is developed by Cozy Cloud and distributed under the [AGPL v3 license
 [twitter]: https://twitter.com/cozycloud
 [nvm]: https://github.com/creationix/nvm
 [cozy-dev]: https://github.com/cozy/cozy-dev/
-[mocha]: https://mochajs.org/
+[jest]: https://jestjs.io/fr/
 [chai]: http://chaijs.com/
 [sinon]: http://sinonjs.org/
 [checkbox]: https://help.github.com/articles/basic-writing-and-formatting-syntax/#task-lists

@@ -1,37 +1,49 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { Provider } from 'react-redux'
-import PropTypes from 'prop-types'
 
+import { BarProvider } from 'cozy-bar'
+import { DataProxyProvider } from 'cozy-dataproxy-lib'
 import { WebviewIntentProvider } from 'cozy-intent'
 
-import DriveProvider from 'drive/lib/DriveProvider'
-import { ThumbnailSizeContextProvider } from 'drive/lib/ThumbnailSizeContext'
-import { ModalContextProvider } from 'drive/lib/ModalContext'
-import { AcceptingSharingProvider } from 'drive/lib/AcceptingSharingContext'
 import PushBannerProvider from 'components/PushBanner/PushBannerProvider'
-import cozyBar from 'lib/cozyBar'
-import { onFileUploaded } from 'drive/web/modules/views/Upload/UploadUtils'
+import { AcceptingSharingProvider } from 'lib/AcceptingSharingContext'
+import DriveProvider from 'lib/DriveProvider'
+import { ModalContextProvider } from 'lib/ModalContext'
+import { ThumbnailSizeContextProvider } from 'lib/ThumbnailSizeContext'
+import { DOCTYPE_APPS, DOCTYPE_CONTACTS, DOCTYPE_FILES } from 'lib/doctypes'
+import { PublicProvider } from 'modules/public/PublicProvider'
+import { onFileUploaded } from 'modules/views/Upload/UploadUtils'
 
-const App = ({ store, client, lang, polyglot, children }) => {
+const App = ({ isPublic, store, client, lang, polyglot, children }) => {
   return (
     <WebviewIntentProvider
-      setBarContext={cozyBar.setWebviewContext}
       methods={{
         onFileUploaded: (file, isSuccess) =>
           onFileUploaded({ file, isSuccess }, store.dispatch)
       }}
     >
-      <Provider store={store}>
-        <DriveProvider client={client} lang={lang} polyglot={polyglot}>
-          <PushBannerProvider>
-            <AcceptingSharingProvider>
-              <ThumbnailSizeContextProvider>
-                <ModalContextProvider>{children}</ModalContextProvider>
-              </ThumbnailSizeContextProvider>
-            </AcceptingSharingProvider>
-          </PushBannerProvider>
-        </DriveProvider>
-      </Provider>
+      <PublicProvider isPublic={isPublic}>
+        <BarProvider>
+          <Provider store={store}>
+            <DriveProvider client={client} lang={lang} polyglot={polyglot}>
+              <DataProxyProvider
+                options={{
+                  doctypes: [DOCTYPE_FILES, DOCTYPE_CONTACTS, DOCTYPE_APPS]
+                }}
+              >
+                <PushBannerProvider>
+                  <AcceptingSharingProvider>
+                    <ThumbnailSizeContextProvider>
+                      <ModalContextProvider>{children}</ModalContextProvider>
+                    </ThumbnailSizeContextProvider>
+                  </AcceptingSharingProvider>
+                </PushBannerProvider>
+              </DataProxyProvider>
+            </DriveProvider>
+          </Provider>
+        </BarProvider>
+      </PublicProvider>
     </WebviewIntentProvider>
   )
 }

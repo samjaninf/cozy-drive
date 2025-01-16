@@ -1,22 +1,22 @@
 import React from 'react'
-import { CozyProvider } from 'cozy-client'
 import { Provider } from 'react-redux'
+import { HashRouter } from 'react-router-dom'
 import { createStore } from 'redux'
 
-import { I18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
-import { SharingContext } from 'cozy-sharing'
-
-import { ThumbnailSizeContextProvider } from 'drive/lib/ThumbnailSizeContext'
+import { CozyProvider } from 'cozy-client'
+import { SharingContext, NativeFileSharingProvider } from 'cozy-sharing'
+import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { ModalContext } from 'drive/lib/ModalContext'
-import { HashRouter } from 'react-router-dom'
-import { AcceptingSharingProvider } from 'drive/lib/AcceptingSharingContext'
-import FabProvider from 'drive/lib/FabProvider'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { I18n } from 'cozy-ui/transpiled/react/providers/I18n'
+
 import PushBannerProvider from 'components/PushBanner/PushBannerProvider'
-import { SelectionProvider } from 'drive/web/modules/selection/SelectionProvider'
-import driveEnLocale from 'drive/locales/en.json'
-import photoEnLocale from 'photos/locales/en.json'
+import { AcceptingSharingProvider } from 'lib/AcceptingSharingContext'
+import FabProvider from 'lib/FabProvider'
+import { ModalContext } from 'lib/ModalContext'
+import { ThumbnailSizeContextProvider } from 'lib/ThumbnailSizeContext'
+import enLocale from 'locales/en.json'
+import { SelectionProvider } from 'modules/selection/SelectionProvider'
 
 const mockStore = createStore(() => ({
   mobile: {
@@ -24,9 +24,9 @@ const mockStore = createStore(() => ({
   }
 }))
 
-export const TestI18n = ({ children, enLocale }) => {
+export const TestI18n = ({ children }) => {
   return (
-    <I18n lang={'en'} dictRequire={enLocale}>
+    <I18n lang="en" dictRequire={() => enLocale}>
       {children}
     </I18n>
   )
@@ -35,7 +35,10 @@ export const TestI18n = ({ children, enLocale }) => {
 const mockSharingContextValue = {
   refresh: jest.fn(),
   hasWriteAccess: jest.fn(),
-  getRecipients: jest.fn(),
+  getRecipients: jest.fn().mockReturnValue([]),
+  getDocumentPermissions: jest.fn(),
+  isOwner: jest.fn(),
+  allLoaded: jest.fn(),
   getSharingLink: jest.fn()
 }
 
@@ -49,32 +52,35 @@ const AppLike = ({
   store,
   client,
   sharingContextValue,
-  modalContextValue,
-  enLocale
+  modalContextValue
 }) => (
   <CozyTheme>
-    <Provider store={(client && client.store) || store || mockStore}>
+    <Provider store={store || (client && client.store) || mockStore}>
       <CozyProvider client={client}>
-        <TestI18n enLocale={enLocale}>
+        <TestI18n>
           <SharingContext.Provider
             value={sharingContextValue || mockSharingContextValue}
           >
             <AcceptingSharingProvider>
-              <HashRouter>
-                <SelectionProvider>
-                  <ThumbnailSizeContextProvider>
-                    <BreakpointsProvider>
-                      <PushBannerProvider>
-                        <ModalContext.Provider
-                          value={modalContextValue || mockModalContextValue}
-                        >
-                          <FabProvider>{children}</FabProvider>
-                        </ModalContext.Provider>
-                      </PushBannerProvider>
-                    </BreakpointsProvider>
-                  </ThumbnailSizeContextProvider>
-                </SelectionProvider>
-              </HashRouter>
+              <NativeFileSharingProvider>
+                <HashRouter>
+                  <SelectionProvider>
+                    <ThumbnailSizeContextProvider>
+                      <BreakpointsProvider>
+                        <AlertProvider>
+                          <PushBannerProvider>
+                            <ModalContext.Provider
+                              value={modalContextValue || mockModalContextValue}
+                            >
+                              <FabProvider>{children}</FabProvider>
+                            </ModalContext.Provider>
+                          </PushBannerProvider>
+                        </AlertProvider>
+                      </BreakpointsProvider>
+                    </ThumbnailSizeContextProvider>
+                  </SelectionProvider>
+                </HashRouter>
+              </NativeFileSharingProvider>
             </AcceptingSharingProvider>
           </SharingContext.Provider>
         </TestI18n>
@@ -83,13 +89,4 @@ const AppLike = ({
   </CozyTheme>
 )
 
-const DriveAppLike = props => (
-  <AppLike enLocale={() => driveEnLocale} {...props} />
-)
-
-export const PhotosAppLike = props => (
-  <AppLike enLocale={() => photoEnLocale} {...props} />
-)
-
-// For legacy reasons, default is Drive
-export default DriveAppLike
+export default AppLike

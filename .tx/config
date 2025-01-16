@@ -1,14 +1,8 @@
 [main]
 host = https://www.transifex.com
 
-[o:cozy:p:cozy-drive:r:global]
-file_filter = src/drive/locales/<lang>.json
-source_file = src/drive/locales/en.json
-source_lang = en
-type        = KEYVALUEJSON
-
-[o:cozy:p:cozy-photos-v3:r:global]
-file_filter = src/photos/locales/<lang>.json
-source_file = src/photos/locales/en.json
+[o:cozy:p:cozy-drive:r:e8e90edbf54aede8b7b026659d6fe40a]
+file_filter = src/locales/<lang>.json
+source_file = src/locales/en.json
 source_lang = en
 type        = KEYVALUEJSON

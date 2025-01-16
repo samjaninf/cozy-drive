@@ -8,11 +8,8 @@ module.exports = {
     '.svg$': '<rootDir>/jestHelpers/mocks/iconMock.js',
     '.styl$': 'identity-obj-proxy',
     '\\.(css|less)$': 'identity-obj-proxy',
-    '^drive/locales/.*': '<rootDir>/src/drive/locales/en.json',
-    '^photos/locales/.*': '<rootDir>/src/photos/locales/en.json',
-    '^drive/(.*)': '<rootDir>/src/drive/$1',
+    '^locales/.*': '<rootDir>/src/locales/en.json',
     '^models(.*)': '<rootDir>/src/models$1',
-    '^photos/(.*)': '<rootDir>/src/photos/$1',
     '^sharing(.*)': '<rootDir>/src/sharing$1',
     '^authentication(.*)': '<rootDir>/src/authentication$1',
     '^viewer(.*)': '<rootDir>/src/viewer$1',
@@ -20,16 +17,18 @@ module.exports = {
     '^components(.*)': '<rootDir>/src/components$1',
     '^hooks(.*)': '<rootDir>/src/hooks$1',
     '^test(.*)': '<rootDir>/test/$1',
-    '^folder-references(.*)': '<rootDir>/src/folder-references$1',
     '^lib(.*)': '<rootDir>/src/lib$1',
     'react-pdf/dist/esm/pdf.worker.entry':
       '<rootDir>/jestHelpers/mocks/pdfjsWorkerMock.js',
     '^cozy-client$': 'cozy-client/dist/index.js',
     '^react-redux': '<rootDir>/node_modules/react-redux',
-    '^cozy-ui/react(.*)$': '<rootDir>/node_modules/cozy-ui/transpiled/react$1'
+    '^cozy-ui/react(.*)$': '<rootDir>/node_modules/cozy-ui/transpiled/react$1',
+    '^config/(.*)': '<rootDir>/src/config/$1',
+    '^constants/(.*)': '<rootDir>/src/constants/$1',
+    '^modules/(.*)': '<rootDir>/src/modules/$1',
+    '^queries(.*)': '<rootDir>/src/queries$1'
   },
   clearMocks: true,
-  snapshotSerializers: ['enzyme-to-json/serializer'],
   transform: {
     '\\.[jt]sx?$': 'babel-jest',
     '^.+\\.webapp$': '<rootDir>/test/jestLib/json-transformer.js'

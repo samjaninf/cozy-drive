@@ -2,145 +2,106 @@
   "baseDir": "./build",
   "files": [
     {
-      "path": "drive/app/drive.<hash>.js",
-      "maxSize": "280 KB"
+      "path": "app/drive.<hash>.js"
     },
     {
-      "path": "drive/app/drive.<hash>.min.css",
-      "maxSize": "55 KB"
+      "path": "app/drive.<hash>.min.css"
     },
     {
-      "path": "drive/img/app-icon.<hash>.svg",
-      "maxSize": "1 KB"
+      "path": "img/app-icon.<hash>.svg"
     },
     {
-      "path": "drive/intents/drive.<hash>.js",
-      "maxSize": "171 KB"
+      "path": "intents/drive.<hash>.js"
     },
     {
-      "path": "drive/intents/drive.<hash>.min.css",
-      "maxSize": "37 KB"
+      "path": "intents/drive.<hash>.min.css"
     },
     {
-      "path": "drive/intents/index.html",
-      "maxSize": "1 KB"
+      "path": "intents/index.html"
     },
     {
-      "path": "drive/onlyOffice/slide.pptx",
-      "maxSize": "25 KB"
+      "path": "onlyOffice/slide.pptx"
     },
     {
-      "path": "drive/onlyOffice/spreadsheet.xlsx",
-      "maxSize": "6 KB"
+      "path": "onlyOffice/spreadsheet.xlsx"
     },
     {
-      "path": "drive/onlyOffice/text.docx",
-      "maxSize": "6 KB"
+      "path": "onlyOffice/text.docx"
     },
     {
-      "path": "drive/public/cozy-bar.css",
-      "maxSize": "24 KB"
+      "path": "public/cozy-bar.css"
     },
     {
-      "path": "drive/public/cozy-bar.js",
-      "maxSize": "854 KB"
+      "path": "public/cozy-bar.js"
     },
     {
-      "path": "drive/public/cozy-client-js.js",
-      "maxSize": "160 KB"
+      "path": "public/cozy-client-js.js"
     },
     {
-      "path": "drive/public/drive.<hash>.js",
-      "maxSize": "1.65 MB"
+      "path": "public/drive.<hash>.js"
     },
     {
-      "path": "drive/public/drive.<hash>.min.css",
-      "maxSize": "100 KB"
+      "path": "public/drive.<hash>.min.css"
     },
     {
-      "path": "drive/public/pdf.worker.entry.<hash>.worker.js",
-      "maxSize": "345 KB"
+      "path": "public/pdf.worker.entry.<hash>.worker.js"
     },
     {
-      "path": "drive/services/dacc/drive.js",
-      "maxSize": "500 KB"
+      "path": "services/dacc/drive.js"
     },
     {
-      "path": "drive/services/qualificationMigration/drive.js",
-      "maxSize": "500 KB"
+      "path": "services/qualificationMigration/drive.js"
     },
     {
-      "path": "drive/vendors/drive.<hash>.<hash>.min.css",
-      "maxSize": "35 KB"
+      "path": "vendors/drive.<hash>.<hash>.min.css"
     },
     {
-      "path": "drive/vendors/drive.<hash>.js",
-      "maxSize": "1.6 MB"
+      "path": "vendors/drive.<hash>.js"
     },
     {
-      "path": "drive/app-drive.<hash>.min.css",
-      "maxSize": "56 KB"
+      "path": "app-drive.<hash>.min.css"
     },
     {
-      "path": "drive/index.html",
-      "maxSize": "1 KB"
+      "path": "index.html"
     },
     {
-      "path": "drive/intents-drive.<hash>.min.css",
-      "maxSize": "40 KB"
+      "path": "intents-drive.<hash>.min.css"
     },
     {
-      "path": "drive/manifest.json",
-      "maxSize": "1 KB"
+      "path": "manifest.json"
     },
     {
-      "path": "drive/manifest.webapp",
-      "maxSize": "2 KB"
+      "path": "manifest.webapp"
     },
     {
-      "path": "drive/public-drive.<hash>.min.css",
-      "maxSize": "100 KB"
+      "path": "public-drive.<hash>.min.css"
     },
     {
-      "path": "drive/vendors-drive.<hash>.min.css",
-      "maxSize": "1 B"
+      "path": "vendors-drive.<hash>.min.css"
     }
   ],
   "groups": [
     {
-      "path": "drive/app/**",
-      "maxPercentIncrease": 10
+      "path": "app/**"
     },
     {
-      "path": "drive/img/**",
-      "maxPercentIncrease": 0.4
+      "path": "img/**"
     },
     {
-      "path": "drive/intents/**",
-      "maxPercentIncrease": 6
+      "path": "intents/**"
     },
     {
-      "path": "drive/onlyOffice/**",
-      "maxPercentIncrease": 0.4
+      "path": "onlyOffice/**"
     },
     {
-      "path": "drive/public/**",
-      "maxPercentIncrease": 7
+      "path": "public/**"
     },
     {
-      "path": "drive/screenshots/**",
-      "maxPercentIncrease": 0.4
+      "path": "services/**"
     },
     {
-      "path": "drive/services/**",
-      "maxPercentIncrease": 1
-    },
-    {
-      "path": "drive/vendors/**",
-      "maxPercentIncrease": 6
+      "path": "vendors/**"
     }
   ],
-  "reportOutput": [
-    "github"
-  ]
+  "reportOutput": ["github"]
 }

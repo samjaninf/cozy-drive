@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react'
+
 import { useQuery } from 'cozy-client'
-import { buildDriveQuery } from 'drive/web/modules/queries'
+
+import { buildDriveQuery } from 'queries'
 
 /** A simple component firing the same queries as DriveView */
 const Component = ({ folderId, sortOrder }) => {

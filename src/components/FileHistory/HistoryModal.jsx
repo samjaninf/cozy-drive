@@ -1,24 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import get from 'lodash/get'
+import { CozyFile } from 'models'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
-import Typography from 'cozy-ui/transpiled/react/Typography'
-
 import { withClient, useCapabilities } from 'cozy-client'
-
+import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import HistoryRow from 'cozy-ui/transpiled/react/HistoryRow'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
+
 import styles from './styles.styl'
 
-import { CozyFile } from 'models'
-import { isMobileApp } from 'cozy-device-helper'
-import { exportFilesNative } from 'drive/web/modules/actions/utils'
-import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
-
 const formatDate = (date, f) => {
-  return f(date, 'DD MMMM - HH:mm')
+  return f(date, 'dd LLLL - HH:mm')
 }
 
 const HistoryModal = ({
@@ -63,11 +59,7 @@ const HistoryModal = ({
             primaryText={formatDate(file.updated_at, f)}
             secondaryText={fileCollection.getBeautifulSize(file)}
             downloadLink={() => {
-              if (!isMobileApp()) {
-                fileCollection.download(file)
-              } else {
-                exportFilesNative(client, [file], file.name)
-              }
+              fileCollection.download(file)
             }}
           />
           {revisionsFetchStatus === 'loading' && (
@@ -83,19 +75,11 @@ const HistoryModal = ({
                   secondaryText={fileCollection.getBeautifulSize(revision)}
                   key={revision._id}
                   downloadLink={() => {
-                    if (!isMobileApp()) {
-                      fileCollection.download(
-                        file,
-                        revision.id,
-                        CozyFile.generateFileNameForRevision(file, revision, f)
-                      )
-                    } else {
-                      exportFilesNative(
-                        client,
-                        [revision],
-                        CozyFile.generateFileNameForRevision(file, revision, f)
-                      )
-                    }
+                    fileCollection.download(
+                      file,
+                      revision.id,
+                      CozyFile.generateFileNameForRevision(file, revision, f)
+                    )
                   }}
                 />
               )

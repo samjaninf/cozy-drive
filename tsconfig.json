@@ -7,8 +7,16 @@
     "noEmit": true,
     "jsx": "react",
     "paths": {
-      "drive/*": ["./src/drive/*"],
-      "lib/*": ["./src/lib/*"]
+      "lib/*": ["./src/lib/*"],
+      "modules/*": ["./src/modules/*"],
+      "components/*": ["./src/components/*"],
+      "test/*": ["./test/*"],
+      "hooks/*": ["./src/hooks/*"],
+      "models/*": ["./src/models/*"],
+      "constants/*": ["./src/constants/*"],
+      "config/*": ["./src/config/*"],
+      "assets/*": ["./src/assets/*"],
+      "queries": ["./src/queries/index.ts"],
     }
   }
 }

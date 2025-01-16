@@ -1,10 +1,14 @@
-import log from 'cozy-logger'
-import CozyClient from 'cozy-client'
-import { schema } from 'drive/lib/doctypes'
-import flag from 'cozy-flags'
-import { endOfMonth, startOfMonth, format, subMonths } from 'date-fns'
+import endOfMonth from 'date-fns/endOfMonth'
+import format from 'date-fns/format'
+import startOfMonth from 'date-fns/startOfMonth'
+import subMonths from 'date-fns/subMonths'
 
-import { aggregateFilesSize, sendToRemoteDoctype } from 'drive/lib/dacc/dacc'
+import CozyClient from 'cozy-client'
+import flag from 'cozy-flags'
+import log from 'cozy-logger'
+
+import { aggregateFilesSize, sendToRemoteDoctype } from 'lib/dacc/dacc'
+import { schema } from 'lib/doctypes'
 
 /**
  * This service aggregates files size by createdByApps slug and send them to the DACC.
@@ -35,17 +39,20 @@ export const run = async () => {
 
   const aggregationDate = new Date(
     maxFileDateQuery || endOfMonth(subMonths(new Date(), 1))
-  ).toISOString()
+  )
 
   const sizesBySlug = await aggregateFilesSize(client, aggregationDate, {
     excludedSlug,
     nonExcludedGroupLabel
   })
   if (Object.keys(sizesBySlug).length < 1) {
-    log('info', `No files found to aggregate with date ${aggregationDate}`)
+    log(
+      'info',
+      `No files found to aggregate with date ${aggregationDate.toISOString()}`
+    )
   }
 
-  const startDateMeasure = format(startOfMonth(aggregationDate), 'YYYY-MM-DD')
+  const startDateMeasure = format(startOfMonth(aggregationDate), 'yyyy-LL-dd')
 
   await sendToRemoteDoctype(client, remoteDoctype, sizesBySlug, {
     measureName,

@@ -3,10 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "components/*": ["src/components/*"],
-      "drive/*": ["src/drive/*"],
       "test/*": ["test/*"],
       "lib/*": ["src/lib/*"],
-      "photos/*": ["src/photos/*"],
       "hooks/*": ["src/hooks/*"]
     }
   },
